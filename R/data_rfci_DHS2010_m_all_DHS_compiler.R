@@ -27,14 +27,6 @@ ind_MWMR61[which(ind_MWMR61[,'mv763a']=="yes" | ind_MWMR61[,'mv763b']=="yes" | i
 ind_MWMR61[which(!(ind_MWMR61[,'mv744a']==0 & ind_MWMR61[,'mv744b']==0 & ind_MWMR61[,'mv744c']==0 
                    & ind_MWMR61[,'mv744d']==0 & ind_MWMR61[,'mv744e']==0)),'mv744a'] <- 1 
 # wife beating never justified 
-#View(table(ind_MWMR61[,'mv744a']))
-#ind_MWMR61[which(ind_MWMR61[,'mv633a']=='yes' || ind_MWMR61[,'mv633b']=='yes' || ind_MWMR61[,'mv633b']=='yes' 
-#                 || ind_MWMR61[,'mv633c']=='yes'),'mv633a'] <-'yes'
-#2010 - reason for not having sex - only STD considered
-
-#ind_MWMR61[which(ind_MWMR61[,'mv754bp']==0 | ind_MWMR61[,'mv754cp']==0 
-#                 | ind_MWMR61[,'mv754dp']==0),"754bp"] <- 0 # possible to decrease the risk by no sex,
-#less partners, condoms
 
 ind_MWMR61[which(!(ind_MWMR61[,'mv754jp'] =='no' & ind_MWMR61[,'mv754wp']=='no' 
                    & ind_MWMR61[,'mv756'] == 'yes'))
@@ -42,24 +34,10 @@ ind_MWMR61[which(!(ind_MWMR61[,'mv754jp'] =='no' & ind_MWMR61[,'mv754wp']=='no'
 #Mosquito bites, sharing food, healthy person with AIDS
 ind_MWMR61[which(is.na(ind_MWMR61[,'mv754jp'])),'mv754jp']<- 'don\'t know'
 
-#ind_MWMR61[which(!(ind_MWMR61[,'mv774a']==1& ind_MWMR61[,'mv774b']==1& ind_MWMR61[,'mv774c']==1)), 
-#           'mv774a'] <-0 # MTC by delivery, pregnancy, breastfeeding v744 instead 
-
 ind_MWMR61[which((ind_MWMR61[,'mv778']=='no' | # not ready to care for AIDS 
                     ind_MWMR61[,'mv779']=='no' | # no teachers with AIDS
                     ind_MWMR61[,'mv777']=='no' #& # vegetables from AIDS vendor, 
-                  # ind_MWMR61[,'mv825']==1)
-                    )) , 'mv778'] <- 'no' # no teachers with AIDS
-                   
-                   
-                  # ind_MWMR61[,'mv780']=='no' || # children not taught about condoms
-                  # ind_MWMR61[,'mv759b']=='no' || # not aaceptable to talk about HIV on TV
-                  # ind_MWMR61[,'s817bx']=='no' ||#condoms not safe
-                  # ind_MWMR61[,'s817by']=='no'), #no HIV test before married 
-                  # 'mv779'] <- 'no'  
-           # AIDS stigma: ids condoms, AIDS TV, 
-#condoms safe, HIV test before marriage 
-
+                    )) , 'mv778'] <- 'no' # stigma 
 
 ind_MWMR61[which(ind_MWMR61[,'mv384a']=="yes" | ind_MWMR61[,'mv384b']=="yes" |
                    ind_MWMR61[,'mv384c']=="yes"), 'mv384a'] <- "yes" 
@@ -76,9 +54,8 @@ ind_MWMR61[which(!(ind_MWMR61[,'mv743a'] %in% c("1","2") & ind_MWMR61[,'mv743b']
 # final say of major purchases, visits to family etc
 
 ind_MWMR61[which(is.na(ind_MWMR61[,'mv633a'])),'mv633a']<- 1 # NA ~ formerly married. TODO check
-ind_MWMR61[which(is.na(ind_MWMR61[,'mv769'])),'mv769']<-0# 'no'
-#ind_MWMR61[which(is.na(ind_MWMR61[,'mv774'])),'mv774']<- 'no'
-ind_MWMR61[which(is.na(ind_MWMR61[,'mv503'])),'mv503']<- 1 # actully, 0. But split no unions or one vs. more than once
+ind_MWMR61[which(is.na(ind_MWMR61[,'mv769'])),'mv769']<-0 # 'no' could get a condom
+ind_MWMR61[which(is.na(ind_MWMR61[,'mv503'])),'mv503']<- 1 # Number of unions. actully, 0. But split no unions or one vs. more than once
 ind_MWMR61[which(is.na(ind_MWMR61[,'mv778'])),'mv778']<- 0 # 'no'
 ind_MWMR61[which(is.na(ind_MWMR61[,'mv780'])),'mv780']<- 0 # 'no' # never heard of AIDS --> we assume children should not be taught about condoms
 ind_MWMR61[which(is.na(ind_MWMR61[,'mv302'])),'mv302']<- 'never used' # doesn't know the method -> never used
