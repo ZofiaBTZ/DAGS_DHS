@@ -1,54 +1,43 @@
-# prepare data for pcalg causal networks.
-# 2010 female never married
+# prepare data for bnlearn causal networks.
+# 2010 male 
 source('./pcalg_DHS_utils.R')
 
-############# variables 1992
+############# variables 2010
 ind_MWMR61 <-  read.dta("//home//b//zbaran/Documents/Genf/Malawi-SNF/Malawi_DHS//MWMR61DT//MWMR61FL.DTA")
 ind_MWAR61 <-  read.dta("//home//b//zbaran/Documents/Genf/Malawi-SNF/Malawi_DHS//MWAR61DT//MWAR61FL.DTA")
 ind_MWMR61 <-  read.dta("//home//b//zbaran/Documents/Genf/Malawi-SNF/Malawi_DHS//MWMR61DT//MWMR61FL.DTA")
 
 
-names(ind_MWAR61)[1:7] <- c('mv001', 'mv002', 'mv003', 'hiv01', 'hiv02','M_hiv03','hiv05')
-#names(ind_MWMR61)[3:5] <- c('mv001', 'mv002', 'husband_linenumber')
-#names(ind_MWMR61)[which(names(ind_MWMR61)=="v034")] <- "husband_linenumber"
+names(ind_MWAR61)[1:7] <- c('mv001', 'mv002', 'mv003', 'hiv01', 'hiv02','M_hiv03','hiv05') 
+# to be able to merge HIV DHS with males DHS 
 
-#ind_MWMR61 <- merge(ind_MWMR61, ind_MWMR61, by=c('mv001', 'mv002', 'husband_linenumber'), all.x = TRUE)
-ind_MWMR61 <- merge(ind_MWAR61, ind_MWMR61, by=c('mv001', 'mv002', 'mv003'), all.x = FALSE, all.y=FALSE ) # leaves out the HIV males results
-#names(ind_MWAR61)[1:7] <- c('mv001', 'mv002', 'husband_linenumber', 'hiv01', 'hiv02','M_hiv03','hiv05')
-#ind_MWMR61 <- merge(ind_MWAR61, ind_MWMR61, by=c('mv001', 'mv002', 'husband_linenumber'), all.y = TRUE) # leaves out the HIV females results
-# no merging with husbands for never married
-
+ind_HIV_MWMR61 <- merge(ind_MWAR61, ind_MWMR61, by=c('mv001', 'mv002', 'mv003'), all.x = FALSE, all.y=FALSE ) # leaves out the HIV females results
 
 indx <- sapply(ind_MWMR61, is.factor)
 ind_MWMR61[indx] <- lapply(ind_MWMR61[indx], function(x) {
   levels(x) <- make.unique(levels(x))
   x })
 
-#ind_MWMR61 <- unfactor(ind_MWMR61)
-#ind_MWMR61[which(ind_MWMR61[,'mv123']==1 | ind_MWMR61[,'mv124']==1 | ind_MWMR61[,'mv125']==1),'mv123'] <-1
-
-media <- c( 2,3)
-
+media <- c( 2,3)  # at least once per week
 ind_MWMR61[which(ind_MWMR61[,'mv158'] %in% media | ind_MWMR61[,'mv157'] %in% media | ind_MWMR61[,'mv159'] %in% media),'mv158'] <- 2 
-# use radio, TV, newspaper 
+# use radio, TV, newspaper at least once per week
+
 #ind_MWMR61[which(ind_MWMR61[,'mv850a']==1 | ind_MWMR61[,'mv850b']==1) ,'mv850a'] <-1
-
 ind_MWMR61[which(ind_MWMR61[,'mv763a']=="yes" | ind_MWMR61[,'mv763b']=="yes" | ind_MWMR61[,'mv763c']=="yes"),'mv763a'] <-"yes" # any STI, combined
-
 ind_MWMR61[which(!(ind_MWMR61[,'mv744a']==0 & ind_MWMR61[,'mv744b']==0 & ind_MWMR61[,'mv744c']==0 
-                 & ind_MWMR61[,'mv744d']==0 & ind_MWMR61[,'mv744e']==0)),'mv744a'] <- 1 
-                  # wife beating never justified 
-View(table(ind_MWMR61[,'mv744a']))
+                   & ind_MWMR61[,'mv744d']==0 & ind_MWMR61[,'mv744e']==0)),'mv744a'] <- 1 
+# wife beating never justified 
+#View(table(ind_MWMR61[,'mv744a']))
 #ind_MWMR61[which(ind_MWMR61[,'mv633a']=='yes' || ind_MWMR61[,'mv633b']=='yes' || ind_MWMR61[,'mv633b']=='yes' 
 #                 || ind_MWMR61[,'mv633c']=='yes'),'mv633a'] <-'yes'
 #2010 - reason for not having sex - only STD considered
 
 #ind_MWMR61[which(ind_MWMR61[,'mv754bp']==0 | ind_MWMR61[,'mv754cp']==0 
 #                 | ind_MWMR61[,'mv754dp']==0),"754bp"] <- 0 # possible to decrease the risk by no sex,
-                                                                  #less partners, condoms
+#less partners, condoms
 
 ind_MWMR61[which(!(ind_MWMR61[,'mv754jp'] =='no' & ind_MWMR61[,'mv754wp']=='no' 
-                 & ind_MWMR61[,'mv756'] == 'yes'))
+                   & ind_MWMR61[,'mv756'] == 'yes'))
            ,"754jp"] <- 'don\'t know' # false believes. 
 #Mosquito bites, sharing food, healthy person with AIDS
 ind_MWMR61[which(is.na(ind_MWMR61[,'mv754jp'])),'mv754jp']<- 'don\'t know'
@@ -56,12 +45,11 @@ ind_MWMR61[which(is.na(ind_MWMR61[,'mv754jp'])),'mv754jp']<- 'don\'t know'
 #ind_MWMR61[which(!(ind_MWMR61[,'mv774a']==1& ind_MWMR61[,'mv774b']==1& ind_MWMR61[,'mv774c']==1)), 
 #           'mv774a'] <-0 # MTC by delivery, pregnancy, breastfeeding v744 instead 
 
-
 ind_MWMR61[which((ind_MWMR61[,'mv778']=='no' | # not ready to care for AIDS 
-                   ind_MWMR61[,'mv779']=='no' | # no teachers with AIDS
-                   ind_MWMR61[,'mv777']=='no' #& # vegetables from AIDS vendor, 
+                    ind_MWMR61[,'mv779']=='no' | # no teachers with AIDS
+                    ind_MWMR61[,'mv777']=='no' #& # vegetables from AIDS vendor, 
                   # ind_MWMR61[,'mv825']==1)
-                  )) , 'mv778'] <- 'no' # no teachers with AIDS
+                    )) , 'mv778'] <- 'no' # no teachers with AIDS
                    
                    
                   # ind_MWMR61[,'mv780']=='no' || # children not taught about condoms
