@@ -1,24 +1,23 @@
+require(bnlearn)
+require(Rgraphviz)
 
-plot_bn_strength <- function(to_analyze, output_file){
+plot_bn_strength <- function(to_analyze){
   tmp <- boot.strength(to_analyze, R=100, m=floor(nrow(to_analyze)/2), algorithm = "iamb")
   n_nodes <- ncol(to_analyze)
-  output <- matrix(rep(0,n_nodes*n_nodes), n_nodes, n_nodes)
-  colnames(output) <- colnames(to_analyze)
-  rownames(output) <- colnames(to_analyze)
+  DAG_matrix <- matrix(rep(0,n_nodes*n_nodes), n_nodes, n_nodes)
+  colnames(DAG_matrix) <- colnames(to_analyze)
+  rownames(DAG_matrix) <- colnames(to_analyze)
   e = empty.graph(colnames(to_analyze))
   treshold <- 0.9
   res <- list()
 
   for (i in seq(1,length(tmp$from))){
-        output[tmp$from[i], tmp$to[i]] <- (tmp$strength[i] >treshold) * (tmp$direction[i] > 0.2)
+        DAG_matrix[tmp$from[i], tmp$to[i]] <- (tmp$strength[i] >treshold) * (tmp$direction[i] > 0.2)
         # if bothe directions > 0.3, there is an arraw in both directions, hence undirected 
   }
 
-  amat(e) <- output
-  png(paste(output_file, '.jpg', sep=""))
-  graphviz.plot(e, shape="rectangle")
-  dev.off()
-  return(output)
+  amat(e) <- DAG_matrix
+  return(list(DAG_matrix = DAG_matrix, strength_bn = tmp, DAG_graph = e))
 }
 
 colors_fun <- function(my_num){
@@ -89,30 +88,30 @@ plot_amat <- function(amat){
 
 
 
-source("data_rfci_DHS2010_m_all_DHS_compiler.R")
-output_file1 <- "./plots/bn_099_DHS2010_m"
-m20101 <- to_analyze
-m_output1 <- plot_bn_strength(to_analyze, output_file)
+#source("data_rfci_DHS2010_m_all_DHS_compiler.R")
+#output_file1 <- "./plots/bn_099_DHS2010_m"
+#m20101 <- to_analyze
+#m_output1 <- plot_bn_strength(to_analyze, output_file)
 
-source("data_rfci_DHS2010_f_all_DHS_compiler.R")
-output_file1 <- "./plots/bn_099_DHS2010_f"
-f_output1 <- plot_bn_strength(to_analyze, output_file)
-f20101 <- to_analyze
+#source("data_rfci_DHS2010_f_all_DHS_compiler.R")
+#output_file1 <- "./plots/bn_099_DHS2010_f"
+#f_output1 <- plot_bn_strength(to_analyze, output_file)
+#f20101 <- to_analyze
+#
+#source("data_rfci_DHS2000_m_all_DHS_compiler.R")
+#output_file1 <- "./plots/bn_099_DHS2000_m"
+#m2000_output1 <- plot_bn_strength(to_analyze, output_file)
+#m20001 <- to_analyze
 
-source("data_rfci_DHS2000_m_all_DHS_compiler.R")
-output_file1 <- "./plots/bn_099_DHS2000_m"
-m2000_output1 <- plot_bn_strength(to_analyze, output_file)
-m20001 <- to_analyze
-
-source("data_rfci_DHS2000_f_all_DHS_compiler.R")
-output_file1 <- "./plots/bn_099_DHS2000_f"
-f20001 <- to_analyze
-f2000_output1 <- plot_bn_strength(to_analyze, output_file)
+#source("data_rfci_DHS2000_f_all_DHS_compiler.R")
+#output_file1 <- "./plots/bn_099_DHS2000_f"
+#f20001 <- to_analyze
+#f2000_output1 <- plot_bn_strength(to_analyze, output_file)
 
 
 
-gg2000 <- 10*m2000_output1 + f2000_output1
-plot_amat(gg2000)
+#gg2000 <- 10*m2000_output1 + f2000_output1
+#plot_amat(gg2000)
 
-gg2010 <- 10*m_output1 + f_output1
-plot_amat(gg2010)
+#gg2010 <- 10*m_output1 + f_output1
+#plot_amat(gg2010)

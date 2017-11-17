@@ -32,11 +32,7 @@ library(pcalg)
 #biocLite("Rgraphviz")
 library("Rgraphviz")
 library(survey)
-source("/home/b/zbaran/Documents/Genf/quantitative/quantitative/Sonja_Meier/R-Code Sonja Meier/R-Code Sonja Meier/logisticCItest.R")
-source("/home/b/zbaran/Documents/Genf/quantitative/quantitative/Sonja_Meier/R-Code Sonja Meier/R-Code Sonja Meier/wDiscrL0penIntScore.R")
-source("/home/b/zbaran/Documents/Genf/quantitative/quantitative/Sonja_Meier/R-Code Sonja Meier/R-Code Sonja Meier/weighted_disCItest.R")
-source("/home/b/zbaran/Documents/Genf/quantitative/quantitative/Sonja_Meier/R-Code Sonja Meier/R-Code Sonja Meier/weighted_logisticCItest_id.R")
-source("/home/b/zbaran/Documents/Genf/Malawi-SNF/pcalg_DHS/Aux.R")
+
 
 # TODO: the same analysis inc. same variables across the countries.
 # generalized --- concentrated comparison
@@ -69,15 +65,16 @@ print("the right place")
     #to_analyze = na.omit(to_analyze)
   
     
-    no_NA[no_NA[,dhs_var] %in% name2one , dhs_var] <- 100
-    no_NA[no_NA[,dhs_var] %in% name2zero , dhs_var] <- 1000
+    no_NA[no_NA[,dhs_var] %in% name2one , dhs_var] <- "DHS_one"  #100 ## change the name to DHS_one; DHS_zero
+    no_NA[no_NA[,dhs_var] %in% name2zero , dhs_var] <- "DHS_zero" # 1000
    # View(no_NA)
     
-    no_NA[no_NA[,dhs_var] ==100 , dhs_var] <- 1
-    no_NA[no_NA[,dhs_var] ==1000 , dhs_var] <- 0
+    # print(setting ones and zeros)
+    no_NA[no_NA[,dhs_var] =="DHS_one" , dhs_var] <- 1
+    no_NA[no_NA[,dhs_var] =="DHS_zero" , dhs_var] <- 0
     num_noNA_1 <- sum(no_NA[,dhs_var] == 1)
     num_noNA_0 <- sum(no_NA[,dhs_var] == 0)
-    
+    print("rbind description")
    
     description <- rbind(description, data.frame(var_dhs = dhs_var, zero = paste(name2zero, collapse = ' , '), 
                                                 one = paste(name2one, collapse = ' , '), 
@@ -89,17 +86,19 @@ print("the right place")
                                                 number_zero_noNA = num_noNA_0)) 
     #}
   }
+  print("created description")
   View(description)
-  write.csv(description, "desc.csv")
-  nrow(to_analyze)
+  #write.csv(description, "desc.csv")  # save in the Output/Output_data
+  #nrow(to_analyze)
   to_analyze <- no_NA
-  nrow(to_analyze)
-  View(to_analyze)
+  #nrow(to_analyze)
+  #View(to_analyze)
   weights_dhs <- as.numeric(to_analyze[, w_var]) 
-  strata_dhs <- as.factor(weights_dhs)
+  print("ẅeights created")
+  strata_dhs <- weights_dhs
   levels(strata_dhs) <- c(1:length(unique(weights_dhs)))
   to_analyze[,w_var] <- NULL
-  return(list(to_analyze = to_analyze, weights = weights_dhs, strata = strata_dhs))
+  return(list(to_analyze = to_analyze, weights = weights_dhs, strata = strata_dhs, description = description))
   }
 
 
