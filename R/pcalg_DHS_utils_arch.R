@@ -27,7 +27,7 @@ library(RBGL)
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("graph")
 library(graph)
-##library(pcalg)
+library(pcalg)
 #source("https://bioconductor.org/biocLite.R")
 #biocLite("Rgraphviz")
 library("Rgraphviz")
@@ -37,14 +37,14 @@ library(survey)
 # TODO: the same analysis inc. same variables across the countries.
 # generalized --- concentrated comparison
 # 
-#print("the right place")
+print("the right place")
 
 
  prepare_df_DAG <- function(df, var_list, DHS_indicators, w_var){ 
- #  print(w_var)
-#   print(unlist(var_list[,'var']))
-#   print(colnames(df))
-#   print(var_list[which(!(unlist(var_list[,'var']) %in% colnames(df)))])
+   print(w_var)
+   print(unlist(var_list[,'var']))
+   print(colnames(df))
+   print(var_list[which(!(unlist(var_list[,'var']) %in% colnames(df)))])
    #View(df[,c("v005")])
   to_analyze <- df[,c(w_var, unlist(var_list[,'var']))]
   to_analyze <- unfactor(to_analyze)
@@ -57,33 +57,31 @@ library(survey)
     dhs_level <- DHS_indicators[[i]]$level
     #print(dhs_var)
     #print(dhs_level)
-    name2one <- dhs_level#names(table(to_analyze[,dhs_var]))[dhs_level]
-    name2zero <- setdiff(names(table(to_analyze[,dhs_var])),dhs_level)#names(table(to_analyze[,dhs_var]))[-dhs_level]
- #   print(name2zero)
-#    print(name2one)
-#    print("utils: ")
-#    print(nrow(to_analyze))
-#    print(nrow(no_NA))
+    name2one <- names(table(to_analyze[,dhs_var]))[dhs_level]
+    name2zero <- names(table(to_analyze[,dhs_var]))[-dhs_level]
+    print(name2zero)
+    print(name2one)
+    print("utils: ")
+    print(nrow(to_analyze))
+    print(nrow(no_NA))
     num_rec = sum(!is.na(to_analyze[,dhs_var]))
- #   print("if error here, wrong columns names")
-    num_1 = sum((to_analyze[,dhs_var]%in% name2one)*df[,w_var]/1000000)/sum(df[,w_var]/1000000)
-    num_0 = sum((to_analyze[,dhs_var]%in% name2zero)*df[,w_var]/1000000)/sum(df[,w_var]/1000000)
+    print("if error here, wrong columns names")
+    num_1 = sum(to_analyze[,dhs_var]%in% name2one)
+    num_0 = sum(to_analyze[,dhs_var]%in% name2zero)
     
-    #num_1 = sum((to_analyze[,dhs_var]%in% name2one))
-    #num_0 = sum((to_analyze[,dhs_var]%in% name2zero))
     #to_analyze = na.omit(to_analyze)
   
     
     no_NA[no_NA[,dhs_var] %in% name2one , dhs_var] <- "DHS_one"  #100 ## change the name to DHS_one; DHS_zero
     no_NA[no_NA[,dhs_var] %in% name2zero , dhs_var] <- "DHS_zero" # 1000
-    #View(no_NA)
-  #  print("columns names ok")
+   # View(no_NA)
+    print("columns names ok")
     # print(setting ones and zeros)
     no_NA[no_NA[,dhs_var] =="DHS_one" , dhs_var] <- 1
     no_NA[no_NA[,dhs_var] =="DHS_zero" , dhs_var] <- 0
     num_noNA_1 <- sum(no_NA[,dhs_var] == 1)
     num_noNA_0 <- sum(no_NA[,dhs_var] == 0)
-   # print("rbind description")
+    print("rbind description")
    
     description <- rbind(description, data.frame(var_dhs = dhs_var, zero = paste(name2zero, collapse = ' , '), 
                                                 one = paste(name2one, collapse = ' , '), 
@@ -95,15 +93,15 @@ library(survey)
                                                 number_zero_noNA = num_noNA_0)) 
     #}
   }
-  #print("created description")
-  #View(description)
+  print("created description")
+  View(description)
   #write.csv(description, "desc.csv")  # save in the Output/Output_data
   #nrow(to_analyze)
   to_analyze <- no_NA
   #nrow(to_analyze)
   #View(to_analyze)
   weights_dhs <- as.numeric(to_analyze[, w_var]) 
-  #print("ẅeights created")
+  print("ẅeights created")
   strata_dhs <- weights_dhs
   levels(strata_dhs) <- c(1:length(unique(weights_dhs)))
   to_analyze[,w_var] <- NULL
