@@ -1,0 +1,23 @@
+"","var_dhs","zero","one","label_dhs","number_records","number_one","number_zero","number_one_noNA","number_zero_noNA"
+"1","v013","25-29 , 30-34 , 35-39 , 40-44 , 45-49","15-19 , 20-24","Age",7924,3367,4557,3367,4557
+"2","v025","urban","rural","Urban/ 
+ rural",7924,6231,1693,6231,1693
+"3","v130","anglican , catholic , ccap , no religion , other , other christian , seventh day adventist / baptist","muslim","Religion",7924,916,7008,916,7008
+"4","v151","female","male","Househead",7924,5387,2537,5387,2537
+"5","v155","able to read only parts of sentence , blind/visually impaired , cannot read at all , no card with required language","able to read whole sentence","Literacy",7924,5176,2748,5176,2748
+"6","v158","less than once a week , not at all","at least once a week","Media access",7924,2648,5276,2648,5276
+"7","v384a","no","yes","Family 
+ planning 
+ on media",7924,3658,4266,3658,4266
+"8","v531","0 , 16 , 17 , 18 , 19 , 20 , 21 , 22 , 23 , 24 , 25 , 26 , 27 , 28 , 29 , 30 , 31 , 32 , 35 , 97","8 , 9 , 10 , 11 , 12 , 13 , 14 , 15","First 
+ sex < 16 ",7924,2655,5269,2655,5269
+"9","v731","in the past year , no","currently working , have a job, but on leave last 7 days","Currently 
+  working",7924,4861,3063,4861,3063
+"10","v744b","no","yes","Wife beating 
+ justified ",7924,1173,6751,1173,6751
+"11","v502","currently in union/living with a man , formerly in union/living with a man","never in union","Marital status",7924,1688,6236,1688,6236
+"12","v754jp","no","don't know , yes","False 
+ beliefs AIDS",7924,2153,5771,2153,5771
+"13","v781","no","yes","Ever 
+ tested HIV",7924,6660,1264,6660,1264
+"14","hiv03","hiv negative , inconclusive","hiv  positive","HIV status",7924,858,7066,858,7066

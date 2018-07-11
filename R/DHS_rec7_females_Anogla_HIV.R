@@ -1,8 +1,7 @@
 # prepare data for bnlearn causal networks.
-# 2015 male 
 #source('./pcalg_DHS_utils.R')
 
-############# variables 2010
+############# variables 2010+
 DHS_rec7_females_Angola_data <- function(data_path){
   ind_MWIR61 <-  read.dta(data_path)
   HIV_path <- gsub("IR", "AR", data_path)
@@ -61,7 +60,7 @@ DHS_rec7_females_Angola_data <- function(data_path){
   ind_MWIR61[which(is.na(ind_MWIR61[,'v780'])),'v780']<- 0 # 'no' # never heard of AIDS --> we assume children should not be taught about condoms
   ind_MWIR61[which(is.na(ind_MWIR61[,'v302'])),'v302']<- 'never used' # doesn't know the method -> never used
 
-  label_dataset <- 'DHS 2010, all male sample'
+  label_dataset <- 'DHS 2010+, female'
   weights_dhs <- ind_MWIR61$v005
 
   # Labels and levels for variables

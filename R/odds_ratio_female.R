@@ -5,7 +5,6 @@ library(reshape2)
 #install.packages("RColorBrewer")
 library(RColorBrewer)
 library(xlsx)
-write.xlsx(0, file="../Output/Females/OR_all_countries.xlsx", sheetName="empty")
 
 MW_desc <- read.csv("../Output/Females/Output__MWIR7HFL/description.csv")
 MW_analyze <- read.csv("../Output/Females/Output__MWIR7HFL/to_analyze.csv")
@@ -52,13 +51,16 @@ for (k in 1:length(countries)){
     }
   }
   View(ORs[,,k])
+
   
-  write.xlsx(ORs[,,k], file="../Output/Females/OR_all_countriesF.xlsx", sheetName=substr(countries[k],27,29), append=TRUE)
+  
+  #write.xlsx(ORs[,,k], file="../Output/Females/OR_all_countriesF.xlsx", sheetName=substr(countries[k],27,29), append=TRUE)
   
 
 
   #write.csv(ors_text, "../Output/Females/CORs.csv")
 }
+saveRDS(ORs, file="../Output/Females/OR_all_countriesF.RDS")
 #View(ORs)
 #heatmap(ORs)
 OR_median <- apply(ORs,c(1,2),median)

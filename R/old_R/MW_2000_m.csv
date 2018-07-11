@@ -1,0 +1,22 @@
+"","var_dhs","zero","one","label_dhs","number_records","number_one","number_zero","number_one_noNA","number_zero_noNA"
+"1","mv013","25-29 , 30-34 , 35-39 , 40-44 , 45-49 , 50-54","15-19 , 20-24","Age",3092,1258,1834,1231,1825
+"2","mv025","urban","rural","Urban/ 
+ rural",3092,2371,721,2341,715
+"3","mv130","anglican , catholic , ccap , no religion , other , other christian , seventh day advent./baptist","muslim","Religion",3091,419,2672,410,2646
+"4","mv151","female","male","Househead",3092,2713,379,2685,371
+"5","mv155","able to read only parts of sentence , cannot read at all , no card with required language","able to read whole sentence","Literacy",3086,2273,813,2258,798
+"6","mv158","at least once a week , less than once a week , not at all","almost every day","Media access",3083,1923,1160,1909,1147
+"7","mv384a","no","yes","Family 
+ planning 
+ on media",3092,2597,495,2577,479
+"8","mv531","0 , 16 , 17 , 18 , 19 , 20 , 21 , 22 , 23 , 24 , 25 , 26 , 27 , 28 , 29 , 30 , 31 , 32 , 33 , 35 , 36 , 46 , 97 , 98","8 , 9 , 10 , 11 , 12 , 13 , 14 , 15","First 
+ sex < 16 ",3084,1015,2069,1003,2053
+"9","mv731","no","currently working , in the past year","Currently 
+  working",3092,2521,571,2502,554
+"10","mv744b","no","yes","Wife beating 
+ justified ",3092,767,2325,753,2303
+"11","mv502","currently married , formerly married","never married","Marital status",3092,1064,2028,1039,2017
+"12","mv754jp","don't know","get aids from mosquito bites , no","False 
+ beliefs AIDS",3092,2802,290,2778,278
+"13","mv781","no","yes","Ever 
+ tested HIV",3080,489,2591,484,2572
