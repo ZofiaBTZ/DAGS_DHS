@@ -1,6 +1,6 @@
 # Creates structure of variables as a DAG.
-Uses the pcalg and bnlearn packages.
+Uses the pcalg and bnlearn packages to create Bayesian Netowrks based on DHS variables.
 
-data_rfci_DHS20xx_x_all_DHS_compiler.R prepares the data to be used for building a DAG.
+run_all.R to run the analysis. 
 
-bnlearn_bootstrap.R analyses the prepared data. 
+
